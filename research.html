@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research — Ismail Berkand Gök</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root { --night: #0d0f14; --cream: #f0e9d6; --gold: #c9a84c; --gold-dim: #8a6e2f; --rust: #a05c3b; --mist: #8a91a8; --fog: #3a3f52; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Crimson Pro', serif; background: var(--night); color: var(--cream); font-size: 18px; line-height: 1.7; cursor: none; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9997; opacity: 0.4; }
+  .cursor { position: fixed; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width 0.2s, height 0.2s; mix-blend-mode: screen; }
+  .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid rgba(201,168,76,0.4); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width 0.3s, height 0.3s; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 1.2rem 3rem; display: flex; align-items: center; justify-content: space-between; background: linear-gradient(to bottom, rgba(13,15,20,0.98), transparent); }
+  .nav-name { font-family: 'Courier Prime', monospace; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: 'Courier Prime', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mist); text-decoration: none; transition: color 0.3s; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
+  .nav-links a:hover { color: var(--cream); } .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); } .nav-links a.active { color: var(--gold); }
+
+  .page-hero { min-height: 45vh; display: flex; align-items: flex-end; padding: 8rem 3rem 4rem; position: relative; overflow: hidden; border-bottom: 1px solid rgba(201,168,76,0.1); }
+  .page-hero::before { content: 'RES'; position: absolute; right: -1rem; top: 50%; transform: translateY(-50%); font-family: 'Playfair Display', serif; font-size: clamp(7rem, 14vw, 16rem); font-weight: 900; color: transparent; -webkit-text-stroke: 1px rgba(201,168,76,0.05); pointer-events: none; user-select: none; }
+  .page-hero-inner { position: relative; z-index: 1; opacity: 0; animation: slideIn 0.7s 0.2s forwards; }
+  .page-eyebrow { font-family: 'Courier Prime', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.8rem; }
+  .page-eyebrow::before { content: '//'; opacity: 0.5; }
+  .page-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 900; line-height: 1; letter-spacing: -0.02em; }
+  .page-title em { font-style: italic; color: var(--gold); }
+
+  .content { padding: 5rem 3rem 7rem; }
+  .section-label { font-family: 'Courier Prime', monospace; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::before { content: '//'; opacity: 0.5; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, rgba(201,168,76,0.2), transparent); }
+
+  /* PUBLICATION CARDS */
+  .pub-card { border: 1px solid rgba(201,168,76,0.12); padding: 2rem 2.5rem; margin-bottom: 1px; position: relative; opacity: 0; transform: translateY(16px); transition: opacity 0.6s, transform 0.6s, background 0.3s; }
+  .pub-card.visible { opacity: 1; transform: none; }
+  .pub-card:hover { background: rgba(201,168,76,0.03); }
+  .pub-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); transform: scaleY(0); transition: transform 0.3s; transform-origin: bottom; }
+  .pub-card:hover::before { transform: scaleY(1); }
+
+  .pub-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; margin-bottom: 0.75rem; }
+  .pub-badge { font-family: 'Courier Prime', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.7rem; white-space: nowrap; }
+  .pub-badge.published { background: var(--gold); color: var(--night); }
+  .pub-badge.review { border: 1px solid var(--gold-dim); color: var(--gold); }
+  .pub-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; line-height: 1.4; margin-bottom: 0.4rem; }
+  .pub-authors { font-size: 0.88rem; color: var(--mist); margin-bottom: 0.2rem; }
+  .pub-venue { font-size: 0.88rem; color: var(--gold-dim); font-style: italic; }
+  .pub-venue a { color: var(--gold-dim); text-decoration: none; border-bottom: 1px solid rgba(201,168,76,0.2); transition: border-color 0.2s, color 0.2s; }
+  .pub-venue a:hover { color: var(--gold); border-color: var(--gold); }
+
+  /* PRESENTATIONS */
+  .pres-list { display: flex; flex-direction: column; gap: 0; }
+  .pres-entry { display: grid; grid-template-columns: 100px 1fr; gap: 2rem; padding: 1.75rem 0; border-bottom: 1px solid rgba(201,168,76,0.06); opacity: 0; transform: translateX(-10px); transition: opacity 0.6s, transform 0.6s; }
+  .pres-entry.visible { opacity: 1; transform: none; }
+  .pres-type-col { display: flex; flex-direction: column; align-items: flex-start; gap: 0.4rem; padding-top: 0.1rem; }
+  .pres-badge { font-family: 'Courier Prime', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(201,168,76,0.3); padding: 0.2rem 0.5rem; }
+  .pres-year { font-family: 'Courier Prime', monospace; font-size: 0.65rem; color: var(--fog); }
+  .pres-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; line-height: 1.45; margin-bottom: 0.3rem; }
+  .pres-venue { font-size: 0.85rem; color: var(--mist); }
+
+  /* PROJECTS */
+  .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; }
+  .project-card { border: 1px solid rgba(201,168,76,0.1); padding: 2rem; position: relative; overflow: hidden; opacity: 0; transform: translateY(12px); transition: opacity 0.6s, transform 0.6s, background 0.3s; }
+  .project-card.visible { opacity: 1; transform: none; }
+  .project-card:hover { background: rgba(201,168,76,0.03); }
+  .project-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, var(--gold), transparent); transform: scaleX(0); transition: transform 0.4s; transform-origin: left; }
+  .project-card:hover::after { transform: scaleX(1); }
+  .project-status { font-family: 'Courier Prime', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+  .project-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; line-height: 1.4; margin-bottom: 0.5rem; }
+  .project-meta { font-size: 0.85rem; color: var(--mist); }
+
+  footer { padding: 2rem 3rem; border-top: 1px solid rgba(201,168,76,0.1); display: flex; justify-content: space-between; align-items: center; }
+  footer p { font-family: 'Courier Prime', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--fog); text-transform: uppercase; }
+  footer a { color: var(--gold-dim); text-decoration: none; } footer a:hover { color: var(--gold); }
+
+  @keyframes slideIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; } .nav-links { gap: 1.5rem; }
+    .page-hero { padding: 7rem 1.5rem 3rem; min-height: auto; }
+    .content { padding: 3rem 1.5rem; }
+    .pres-entry { grid-template-columns: 1fr; gap: 0.5rem; }
+    .project-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<nav>
+  <a href="index.html" class="nav-name">İ. B. Gök</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    
+    <li><a href="education.html">Education</a></li>
+    <li><a href="research.html" class="active">Research</a></li>
+    <li><a href="teaching.html">Teaching</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <p class="page-eyebrow">Scholarship &amp; Inquiry</p>
+    <h1 class="page-title">Research <em>Experience</em></h1>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="section-label">Publications</div>
+
+  
+
+      <p style="font-family:'Courier Prime',monospace;font-size:0.75rem;color:var(--mist);font-style:italic;margin-bottom:2.5rem;padding:1rem 1.2rem;border-left:2px solid rgba(201,168,76,0.25);">Ongoing and not published studies are not listed here.</p>
+  <div class="pub-card">
+    <div class="pub-top">
+      <div>
+        <div class="pub-title">Practical contributions from feminist pedagogy: Love and ethics for higher education</div>
+        <div class="pub-authors">Miyafuji, D. T., Gök, İ. B., &amp; Karakaş, B. (2023)</div>
+        <div class="pub-venue">EJERCONGRESS 2023 Conference Proceedings (pp. 416–431). Anı Yayıncılık.</div>
+      </div>
+      <span class="pub-badge published">Published</span>
+    </div>
+  </div>
+
+  <div class="pub-card">
+    <div class="pub-top">
+      <div>
+        <div class="pub-title">Science does matter! (Editorial)</div>
+        <div class="pub-authors">Matter Undergraduate Research Journal Editorial Board (2023)</div>
+        <div class="pub-venue"><a href="https://doi.org/10.5281/zenodo.10396947" target="_blank">Matter Undergraduate Research Journal, 1(1), 1–4. doi:10.5281/zenodo.10396947</a></div>
+      </div>
+      <span class="pub-badge published">Published</span>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top: 5rem;">Presentations</div>
+  <div class="pres-list">
+    <div class="pres-entry">
+      <div class="pres-type-col"><span class="pres-badge">Guest Talk</span><span class="pres-year">2025</span></div>
+      <div>
+        <div class="pres-title">Data collection challenges regarding research questions: Insights from a specific study</div>
+        <div class="pres-venue">UCLouvain, Louvain-la-Neuve, Belgium · December 9, 2025</div>
+      </div>
+    </div>
+    <div class="pres-entry">
+      <div class="pres-type-col"><span class="pres-badge">Webinar</span><span class="pres-year">2025</span></div>
+      <div>
+        <div class="pres-title">Graduate study abroad experience</div>
+        <div class="pres-venue">Middle East Technical University · December 1, 2025</div>
+      </div>
+    </div>
+    <div class="pres-entry">
+      <div class="pres-type-col"><span class="pres-badge">Conference</span><span class="pres-year">2024</span></div>
+      <div>
+        <div class="pres-title">Unraveling the dynamics of feedback cycle: Insights from English-medium instruction context on poster presentations</div>
+        <div class="pres-venue">Demirezen, S.M. &amp; Gök, İ.B. · Gazi University, Ankara, Türkiye · May 17, 2024</div>
+      </div>
+    </div>
+    <div class="pres-entry">
+      <div class="pres-type-col"><span class="pres-badge">Conference</span><span class="pres-year">2023</span></div>
+      <div>
+        <div class="pres-title">Practical contributions from feminist pedagogy: Love and ethics for higher education</div>
+        <div class="pres-venue">Miyafuji, D. T., Gök, İ. B., &amp; Karakaş, B. · TED University, Ankara, Türkiye · June 8, 2023</div>
+      </div>
+    </div>
+    <div class="pres-entry">
+      <div class="pres-type-col"><span class="pres-badge">Poster</span><span class="pres-year">2022</span></div>
+      <div>
+        <div class="pres-title">An analysis of moral reasoning of teacher candidates with respect to Kohlberg's theory of moral development</div>
+        <div class="pres-venue">Gök, İ.B. et al. · AdımODTÜ Research Day, METU, Ankara · December 22, 2022</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top: 5rem;">Research Projects</div>
+  <div class="project-grid">
+    <div class="project-card">
+      <div class="project-status">● Active</div>
+      <div class="project-title">COST Association — CA22145: Computational Techniques for Tabletop Games Heritage</div>
+      <div class="project-meta">Member · 2024 – Present</div>
+    </div>
+    <div class="project-card">
+      <div class="project-status">○ Completed</div>
+      <div class="project-title">Developing an in-service training framework for instructors in English Medium Universities</div>
+      <div class="project-meta">Undergraduate &amp; Graduate Research Scholar · 2023–2025 · Funded by TÜBİTAK</div>
+    </div>
+        <div class="project-card">
+        <div class="project-status">○ Completed</div>
+        <div class="project-title">An analysis of moral reasoning of teacher candidates with respect to Kohlberg's theory of moral development</div>
+        <div class="project-meta">Gök, İ.B., Berk, M.C., Akdeniz, O., İçli, N., Cansungu N. · Funded by AdımODTÜ</div>
+      </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 Ismail Berkand Gök</p>
+  <p><a href="contact.html">iberkandgok@gmail.com</a></p>
+</footer>
+
+<script>
+  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+  function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}animRing();
+  document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{cursor.style.width='16px';cursor.style.height='16px';ring.style.width='54px';ring.style.height='54px';});el.addEventListener('mouseleave',()=>{cursor.style.width='8px';cursor.style.height='8px';ring.style.width='36px';ring.style.height='36px';});});
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.08});
+  document.querySelectorAll('.pub-card,.pres-entry,.project-card').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

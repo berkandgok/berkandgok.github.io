@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teaching — Ismail Berkand Gök</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root { --night: #0d0f14; --cream: #f0e9d6; --gold: #c9a84c; --gold-dim: #8a6e2f; --rust: #a05c3b; --mist: #8a91a8; --fog: #3a3f52; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Crimson Pro', serif; background: var(--night); color: var(--cream); font-size: 18px; line-height: 1.7; cursor: none; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9997; opacity: 0.4; }
+  .cursor { position: fixed; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width 0.2s, height 0.2s; mix-blend-mode: screen; }
+  .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid rgba(201,168,76,0.4); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width 0.3s, height 0.3s; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 1.2rem 3rem; display: flex; align-items: center; justify-content: space-between; background: linear-gradient(to bottom, rgba(13,15,20,0.98), transparent); }
+  .nav-name { font-family: 'Courier Prime', monospace; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: 'Courier Prime', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mist); text-decoration: none; transition: color 0.3s; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
+  .nav-links a:hover { color: var(--cream); } .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); } .nav-links a.active { color: var(--gold); }
+
+  .page-hero { min-height: 45vh; display: flex; align-items: flex-end; padding: 8rem 3rem 4rem; position: relative; overflow: hidden; border-bottom: 1px solid rgba(201,168,76,0.1); }
+  .page-hero::before { content: 'TEACH'; position: absolute; right: -2rem; top: 50%; transform: translateY(-50%); font-family: 'Playfair Display', serif; font-size: clamp(5rem, 11vw, 13rem); font-weight: 900; color: transparent; -webkit-text-stroke: 1px rgba(201,168,76,0.05); pointer-events: none; user-select: none; white-space: nowrap; }
+  .page-hero-inner { position: relative; z-index: 1; opacity: 0; animation: slideIn 0.7s 0.2s forwards; }
+  .page-eyebrow { font-family: 'Courier Prime', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.8rem; }
+  .page-eyebrow::before { content: '//'; opacity: 0.5; }
+  .page-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 900; line-height: 1; letter-spacing: -0.02em; }
+  .page-title em { font-style: italic; color: var(--gold); }
+
+  .content { padding: 5rem 3rem 7rem; }
+  .section-label { font-family: 'Courier Prime', monospace; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::before { content: '//'; opacity: 0.5; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, rgba(201,168,76,0.2), transparent); }
+
+  /* TEACHING ROLES — full width cards */
+  .role-card { display: grid; grid-template-columns: 160px 1fr; gap: 3rem; padding: 2.5rem 0; border-bottom: 1px solid rgba(201,168,76,0.07); opacity: 0; transform: translateY(10px); transition: opacity 0.6s, transform 0.6s; }
+  .role-card:first-of-type { border-top: 1px solid rgba(201,168,76,0.07); }
+  .role-card.visible { opacity: 1; transform: none; }
+  .role-period { font-family: 'Courier Prime', monospace; font-size: 0.7rem; color: var(--gold-dim); letter-spacing: 0.05em; padding-top: 0.2rem; line-height: 1.5; }
+  .role-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .role-org { font-size: 0.95rem; color: var(--gold); font-weight: 600; margin-bottom: 0.75rem; }
+  .role-notes { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+  .role-notes li { font-size: 0.9rem; color: var(--mist); padding-left: 1.2rem; position: relative; }
+  .role-notes li::before { content: '›'; position: absolute; left: 0; color: var(--gold-dim); }
+
+  /* PHILOSOPHY — pull quote style */
+  .philosophy { margin-top: 5rem; padding: 3.5rem; border: 1px solid rgba(201,168,76,0.12); position: relative; background: rgba(201,168,76,0.02); }
+  .philosophy::before { content: '\201C'; font-family: 'Playfair Display', serif; font-size: 8rem; line-height: 0.8; color: rgba(201,168,76,0.1); position: absolute; top: 1.5rem; left: 2rem; }
+  .philosophy-label { font-family: 'Courier Prime', monospace; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .philosophy p { font-size: 1.1rem; line-height: 1.85; color: rgba(240,233,214,0.8); font-style: italic; position: relative; z-index: 1; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 2rem; }
+  .skill-card { border: 1px solid rgba(201,168,76,0.1); padding: 1.8rem; opacity: 0; transform: translateY(8px); transition: opacity 0.5s, transform 0.5s; }
+  .skill-card.visible { opacity: 1; transform: none; }
+  .skill-card:hover { background: rgba(201,168,76,0.03); }
+  .skill-card h3 { font-family: 'Courier Prime', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .skill-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .skill-card li { font-size: 0.9rem; color: var(--mist); padding-left: 1rem; position: relative; }
+  .skill-card li::before { content: '›'; position: absolute; left: 0; color: var(--gold-dim); }
+
+  footer { padding: 2rem 3rem; border-top: 1px solid rgba(201,168,76,0.1); display: flex; justify-content: space-between; align-items: center; }
+  footer p { font-family: 'Courier Prime', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--fog); text-transform: uppercase; }
+  footer a { color: var(--gold-dim); text-decoration: none; } footer a:hover { color: var(--gold); }
+
+  @keyframes slideIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; } .nav-links { gap: 1.5rem; }
+    .page-hero { padding: 7rem 1.5rem 3rem; min-height: auto; }
+    .content { padding: 3rem 1.5rem; }
+    .role-card { grid-template-columns: 1fr; gap: 0.5rem; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .philosophy { padding: 2rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<nav>
+  <a href="index.html" class="nav-name">İ. B. Gök</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    
+    <li><a href="education.html">Education</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="teaching.html" class="active">Teaching</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <p class="page-eyebrow">Pedagogy &amp; Practice</p>
+    <h1 class="page-title">Teaching <em>Experience</em></h1>
+  </div>
+</div>
+
+<div class="content">
+  <div class="section-label">Teaching Roles</div>
+
+  <div class="role-card">
+    <div class="role-period">2025 –<br>Present</div>
+    <div>
+      <div class="role-title">Instructor, English Composition</div>
+      <div class="role-org">Northern Arizona University, Flagstaff, AZ</div>
+      <ul class="role-notes">
+        <li>Teach undergraduate English composition as a Graduate Teaching Assistant (face-to-face)</li>
+        <li>Design lesson plans, provide written feedback, and assess student work</li>
+        <li>CRLA Level I certified tutor — NAU International Tutor Training Program</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="role-card">
+    <div class="role-period">2024 –<br>2025</div>
+    <div>
+      <div class="role-title">English Language Teacher</div>
+      <div class="role-org">Turkish American Association, Ankara, Türkiye</div>
+      <ul class="role-notes">
+        <li>Taught general English to adults and children from diverse backgrounds (face-to-face)</li>
+        <li>Contributed to educational material design</li>
+        <li>Completed multiple TAA professional development certificates during this role</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="role-card">
+    <div class="role-period">2023 –<br>2024</div>
+    <div>
+      <div class="role-title">Intern English Language Teacher</div>
+      <div class="role-org">Türk Telekom Social Sciences High School &amp; Şehit Cihan Bayık Middle School, Ankara</div>
+      <ul class="role-notes">
+        <li>Practicum-based teacher at high school (IB program) and middle school levels (face-to-face)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="role-card">
+    <div class="role-period">2022</div>
+    <div>
+      <div class="role-title">English Language Teacher</div>
+      <div class="role-org">GoStudent Online Teaching Platform</div>
+      <ul class="role-notes">
+        <li>One-on-one online English tutoring adapted to individual learner needs (online)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="role-card">
+    <div class="role-period">2022</div>
+    <div>
+      <div class="role-title">Volunteer English Teacher</div>
+      <div class="role-org">Community Service, Ankara, Türkiye</div>
+      <ul class="role-notes">
+        <li>Provided accessible English instruction to a visually impaired student (online)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="philosophy">
+    <div class="philosophy-label">Teaching Philosophy</div>
+    <p>I believe that meaningful learning begins with genuine connection. I learn every student's name, encourage them to call me by name, and praise even their smallest contributions. By offering constructive feedback and creating a space where students feel seen and valued, I aim to encourage them to participate more in the class. 
+
+I draw on my own experience as a student when designing my lessons. I create lesson content that resonates with students' lives. For instance, I use social media discourse to explore language and rhetoric. This not only captures their interest but also helps them develop a critical perspective and attention to their daily language use. 
+
+Informed by the Zone of Proximal Development, I structure learning in a step-by-step manner. I break complex assignments into manageable stages, provide examples for each step for thorough comprehension, and integrate group activities that build teamwork and analytical thinking. My main goal is to equip students with problem-solving and collaborative skills they will carry into their academic and professional lives.</p>
+  </div>
+
+  <div class="section-label" style="margin-top: 5rem;">Teaching Skills</div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h3>Contexts</h3>
+      <ul>
+        <li>University composition, US (face-to-face)</li>
+        <li>ELT — adults &amp; children (face-to-face &amp; online)</li>
+        <li>Secondary &amp; middle school (face-to-face)</li>
+        <li>One-on-one tutoring (online)</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <h3>Specializations</h3>
+      <ul>
+        <li>TOEFL IBT preparation</li>
+        <li>Academic writing &amp; reading</li>
+        <li>Inclusive &amp; accessible ELT</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <h3>Approaches</h3>
+      <ul>
+        <li>Critical pedagogy</li>
+        <li>21st-century skills integration</li>
+        <li>Technology-based teaching</li>
+        <li>Gamification</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Ismail Berkand Gök</p>
+  <p><a href="contact.html">iberkandgok@gmail.com</a></p>
+</footer>
+
+<script>
+  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+  function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}animRing();
+  document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{cursor.style.width='16px';cursor.style.height='16px';ring.style.width='54px';ring.style.height='54px';});el.addEventListener('mouseleave',()=>{cursor.style.width='8px';cursor.style.height='8px';ring.style.width='36px';ring.style.height='36px';});});
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.08});
+  document.querySelectorAll('.role-card,.skill-card').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Ismail Berkand Gök</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{--night:#0d0f14;--cream:#f0e9d6;--gold:#c9a84c;--gold-dim:#8a6e2f;--mist:#8a91a8;--fog:#3a3f52;--border:rgba(201,168,76,0.12);}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Crimson Pro',serif;background:var(--night);color:var(--cream);font-size:18px;line-height:1.7;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:9997;opacity:0.5;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1.1rem 3rem;display:flex;align-items:center;justify-content:space-between;background:rgba(13,15,20,0.96);border-bottom:1px solid var(--border);}
+  .nav-name{font-family:'Courier Prime',monospace;font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);text-decoration:none;}
+  .nav-links{display:flex;gap:2.5rem;list-style:none;}
+  .nav-links a{font-family:'Courier Prime',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mist);text-decoration:none;transition:color 0.25s;position:relative;}
+  .nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform 0.25s;transform-origin:left;}
+  .nav-links a:hover{color:var(--cream);}.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);}.nav-links a.active{color:var(--gold);}
+
+  .page-wrap{padding-top:57px;}
+  .page-hero{padding:5rem 4rem 4rem;border-bottom:1px solid var(--border);}
+  .page-eyebrow{font-family:'Courier Prime',monospace;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.8rem;}
+  .page-eyebrow::before{content:'//';opacity:0.5;}
+  .page-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,5rem);font-weight:900;line-height:1;letter-spacing:-0.02em;}
+  .page-title em{font-style:italic;color:var(--gold);}
+
+  .content{padding:5rem 4rem;}
+  .intro{font-size:1.05rem;line-height:1.85;color:rgba(240,233,214,0.78);max-width:640px;margin-bottom:3rem;}
+
+  .contact-item{margin-bottom:2.2rem;}
+  .contact-label{font-family:'Courier Prime',monospace;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;}
+  .contact-value{font-family:'Playfair Display',serif;font-size:1.1rem;}
+  .contact-value a{color:var(--cream);text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.25);transition:color 0.2s,border-color 0.2s;}
+  .contact-value a:hover{color:var(--gold);border-color:var(--gold);}
+
+  .affil-block{margin-top:3rem;padding-top:3rem;border-top:1px solid var(--border);max-width:480px;}
+  .affil-label{font-family:'Courier Prime',monospace;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;}
+  .affil-block p{font-size:0.95rem;color:var(--mist);line-height:1.65;}
+
+  footer{padding:1.5rem 4rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+  footer p{font-family:'Courier Prime',monospace;font-size:0.65rem;letter-spacing:0.1em;color:var(--fog);text-transform:uppercase;}
+  footer a{color:var(--gold-dim);text-decoration:none;}footer a:hover{color:var(--gold);}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+  .page-hero>*{opacity:0;animation:fadeUp 0.5s forwards;}
+  .page-eyebrow{animation-delay:0.1s;}.page-title{animation-delay:0.2s;}
+  .content{opacity:0;animation:fadeUp 0.6s 0.3s forwards;}
+
+  @media(max-width:900px){
+    nav{padding:1rem 1.5rem;}.nav-links{gap:1.5rem;}
+    .page-hero{padding:4rem 2rem 3rem;}
+    .content{padding:3rem 2rem;}
+    footer{padding:1.5rem 2rem;flex-direction:column;gap:0.5rem;text-align:center;}
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-name">İ. B. Gök</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="education.html">Education</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="teaching.html">Teaching</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+</nav>
+<div class="page-wrap">
+  <div class="page-hero">
+    <p class="page-eyebrow">Get in Touch</p>
+    <h1 class="page-title">Contact <em>Me</em></h1>
+  </div>
+  <div class="content">
+    <p class="intro">I welcome correspondence from potential collaborators for research, teaching institutions, and game companies.</p>
+
+    <div class="contact-item">
+      <div class="contact-label">Email</div>
+      <div class="contact-value"><a href="mailto:iberkandgok@gmail.com">iberkandgok@gmail.com</a></div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-label">University Email</div>
+      <div class="contact-value"><a href="mailto:ibg27@nau.edu">ibg27@nau.edu</a></div>
+    </div>
+
+    <div class="affil-block">
+      <div class="affil-label">Current Affiliation</div>
+      <p>Graduate Teaching Assistant &amp; MA Student<br>Applied Linguistics &amp; TESL<br>Department of English<br>Northern Arizona University, Flagstaff, AZ</p>
+    </div>
+    <div class="affil-block">
+      <div class="affil-label">Academic Background</div>
+      <p>B.A. English Language Teaching<br>Middle East Technical University, Ankara, Türkiye</p>
+    </div>
+  </div>
+</div>
+<footer>
+  <p>© 2026 Ismail Berkand Gök</p>
+  <p><a href="mailto:iberkandgok@gmail.com">iberkandgok@gmail.com</a></p>
+</footer>
+</body>
+</html>

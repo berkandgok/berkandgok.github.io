@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Education — Ismail Berkand Gök</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root { --night: #0d0f14; --deep: #13161f; --ink: #1c2130; --cream: #f0e9d6; --gold: #c9a84c; --gold-dim: #8a6e2f; --rust: #a05c3b; --mist: #8a91a8; --fog: #3a3f52; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Crimson Pro', serif; background: var(--night); color: var(--cream); font-size: 18px; line-height: 1.7; cursor: none; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9997; opacity: 0.4; }
+  .cursor { position: fixed; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width 0.2s, height 0.2s; mix-blend-mode: screen; }
+  .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid rgba(201,168,76,0.4); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width 0.3s, height 0.3s; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 1.2rem 3rem; display: flex; align-items: center; justify-content: space-between; background: linear-gradient(to bottom, rgba(13,15,20,0.98), transparent); }
+  .nav-name { font-family: 'Courier Prime', monospace; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: 'Courier Prime', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mist); text-decoration: none; transition: color 0.3s; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
+  .nav-links a:hover { color: var(--cream); } .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); } .nav-links a.active { color: var(--gold); }
+
+  .page-hero { min-height: 45vh; display: flex; align-items: flex-end; padding: 8rem 3rem 4rem; position: relative; overflow: hidden; border-bottom: 1px solid rgba(201,168,76,0.1); }
+  .page-hero::before { content: 'EDU'; position: absolute; right: -1rem; top: 50%; transform: translateY(-50%); font-family: 'Playfair Display', serif; font-size: clamp(7rem, 14vw, 16rem); font-weight: 900; color: transparent; -webkit-text-stroke: 1px rgba(201,168,76,0.05); pointer-events: none; user-select: none; white-space: nowrap; }
+  .page-hero-inner { position: relative; z-index: 1; opacity: 0; animation: slideIn 0.7s 0.2s forwards; }
+  .page-eyebrow { font-family: 'Courier Prime', monospace; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.8rem; }
+  .page-eyebrow::before { content: '//'; opacity: 0.5; }
+  .page-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 900; line-height: 1; letter-spacing: -0.02em; }
+  .page-title em { font-style: italic; color: var(--gold); }
+
+  .content { padding: 5rem 3rem 7rem; }
+
+  .section-label { font-family: 'Courier Prime', monospace; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::before { content: '//'; opacity: 0.5; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, rgba(201,168,76,0.2), transparent); }
+
+  /* TIMELINE LAYOUT */
+  .timeline { position: relative; padding-left: 3rem; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--gold-dim), transparent); }
+
+  .timeline-entry { position: relative; padding-bottom: 3.5rem; opacity: 0; transform: translateX(-12px); transition: opacity 0.6s, transform 0.6s; }
+  .timeline-entry.visible { opacity: 1; transform: none; }
+  .timeline-entry:last-child { padding-bottom: 0; }
+
+  .timeline-dot { position: absolute; left: -3.4rem; top: 0.4rem; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 12px rgba(201,168,76,0.4); }
+  .timeline-dot.muted { background: var(--fog); box-shadow: none; }
+
+  .timeline-period { font-family: 'Courier Prime', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--gold-dim); margin-bottom: 0.4rem; }
+  .timeline-degree { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.25rem; line-height: 1.2; }
+  .timeline-institution { font-size: 0.95rem; color: var(--gold); font-weight: 600; margin-bottom: 0.8rem; }
+  .timeline-notes { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+  .timeline-notes li { font-size: 0.9rem; color: var(--mist); padding-left: 1.2rem; position: relative; }
+  .timeline-notes li::before { content: '›'; position: absolute; left: 0; color: var(--gold-dim); }
+
+  /* AWARDS — card grid */
+  .awards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 2rem; }
+  .award-card { background: rgba(201,168,76,0.03); border: 1px solid rgba(201,168,76,0.1); padding: 2rem; opacity: 0; transform: translateY(12px); transition: opacity 0.5s, transform 0.5s; position: relative; overflow: hidden; }
+  .award-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, var(--gold), transparent); }
+  .award-card.visible { opacity: 1; transform: none; }
+  .award-card:hover { background: rgba(201,168,76,0.06); }
+  .award-amount { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--gold); line-height: 1; margin-bottom: 0.5rem; }
+  .award-name { font-size: 0.92rem; line-height: 1.45; margin-bottom: 0.3rem; color: var(--cream); }
+  .award-org { font-family: 'Courier Prime', monospace; font-size: 0.68rem; color: var(--mist); letter-spacing: 0.05em; }
+
+  /* CERTS */
+  .cert-list { display: flex; flex-direction: column; gap: 1px; }
+  .cert-entry { display: flex; justify-content: space-between; align-items: center; gap: 2rem; padding: 1rem 0; border-bottom: 1px solid rgba(201,168,76,0.06); opacity: 0; transform: translateX(-8px); transition: opacity 0.5s, transform 0.5s; }
+  .cert-entry.visible { opacity: 1; transform: none; }
+  .cert-name { font-size: 0.92rem; color: var(--mist); line-height: 1.45; }
+  .cert-year { font-family: 'Courier Prime', monospace; font-size: 0.72rem; color: var(--gold-dim); white-space: nowrap; }
+
+  footer { padding: 2rem 3rem; border-top: 1px solid rgba(201,168,76,0.1); display: flex; justify-content: space-between; align-items: center; }
+  footer p { font-family: 'Courier Prime', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--fog); text-transform: uppercase; }
+  footer a { color: var(--gold-dim); text-decoration: none; } footer a:hover { color: var(--gold); }
+
+  @keyframes slideIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; } .nav-links { gap: 1.5rem; }
+    .page-hero { padding: 7rem 1.5rem 3rem; min-height: auto; }
+    .content { padding: 3rem 1.5rem; }
+    .timeline { padding-left: 2rem; }
+    .awards-grid { grid-template-columns: 1fr 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<nav>
+  <a href="index.html" class="nav-name">İ. B. Gök</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    
+    <li><a href="education.html" class="active">Education</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="teaching.html">Teaching</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <p class="page-eyebrow">Academic Background</p>
+    <h1 class="page-title">Education &amp; <em>Credentials</em></h1>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="section-label">Degrees</div>
+  <div class="timeline">
+    <div class="timeline-entry">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">2025 – Present</div>
+      <div class="timeline-degree">M.A. Applied Linguistics &amp; TESL</div>
+      <div class="timeline-institution">Northern Arizona University, Flagstaff, AZ</div>
+      <ul class="timeline-notes">
+        <li>Graduate Teaching Assistant — English Composition Instructor</li>
+        <li>MA Representative, Graduate Student Association of Applied Linguistics (GSAAL, 2026)</li>
+        <li>Volunteer, Second Language Research Forum (SLRF) 2025</li>
+      </ul>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-dot muted"></div>
+      <div class="timeline-period">2019 – 2024</div>
+      <div class="timeline-degree">B.A. English Language Teaching</div>
+      <div class="timeline-institution">Middle East Technical University, Ankara, Türkiye</div>
+      <ul class="timeline-notes">
+        <li>High Honor Student (2020–2023)</li>
+        <li>President, METU Science Fiction and Fantasy Society (2023–2024)</li>
+        <li>Editor &amp; Graphic Designer, Matter Undergraduate Research Journal (2023)</li>
+        <li>Undergraduate Research Scholar, TÜBİTAK (2023–2024)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top: 5rem;">Scholarships &amp; Awards</div>
+  <div class="awards-grid">
+    <div class="award-card">
+      <div class="award-name">Graduate Teaching Assistantship</div>
+      <div class="award-org">Northern Arizona University · 2025–2027</div>
+    </div>
+    <div class="award-card">
+      <div class="award-name">Visiting Scholar &amp; Intern — Learner Corpus Linguistics</div>
+      <div class="award-org">NAU &amp; UCLouvain · 2025</div>
+    </div>
+    <div class="award-card">
+      <div class="award-name">Graduate Research Scholar</div>
+      <div class="award-org">TÜBİTAK · 2023–2024</div>
+    </div>
+    <div class="award-card">
+      <div class="award-name">Undergraduate Research Scholar</div>
+      <div class="award-org">TÜBİTAK · 2023–2024</div>
+    </div>
+    <div class="award-card">
+      <div class="award-name">High Honor Student</div>
+      <div class="award-org">Middle East Technical University · 2020–2023</div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top: 5rem;">Certificates</div>
+  <div class="cert-list">
+    <div class="cert-entry"><span class="cert-name">CRLA Level I — International Tutor Training Program, Northern Arizona University</span><span class="cert-year">2025</span></div>
+    <div class="cert-entry"><span class="cert-name">Teaching TOEFL IBT Skills: Reading, Listening, Speaking, Writing — ETS</span><span class="cert-year">2025</span></div>
+    <div class="cert-entry"><span class="cert-name">Implementing Digital Tools in Mixed-ability Classes: The PICRAT Model — Turkish American Association</span><span class="cert-year">2025</span></div>
+    <div class="cert-entry"><span class="cert-name">Fantastic Teens and How to Guide Them — Turkish American Association</span><span class="cert-year">2025</span></div>
+    <div class="cert-entry"><span class="cert-name">Teaching Adults: Engaging Strategies — Turkish American Association</span><span class="cert-year">2024</span></div>
+    <div class="cert-entry"><span class="cert-name">Foundations of ELT for Young Learners I — Turkish American Association</span><span class="cert-year">2024</span></div>
+    <div class="cert-entry"><span class="cert-name">Integrating 21st Century Skills in ELT Classrooms I &amp; II — Turkish American Association</span><span class="cert-year">2024</span></div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 Ismail Berkand Gök</p>
+  <p><a href="contact.html">iberkandgok@gmail.com</a></p>
+</footer>
+
+<script>
+  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+  function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}animRing();
+  document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{cursor.style.width='16px';cursor.style.height='16px';ring.style.width='54px';ring.style.height='54px';});el.addEventListener('mouseleave',()=>{cursor.style.width='8px';cursor.style.height='8px';ring.style.width='36px';ring.style.height='36px';});});
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.08});
+  document.querySelectorAll('.timeline-entry,.award-card,.cert-entry').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
